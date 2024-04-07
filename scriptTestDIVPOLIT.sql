@@ -14,7 +14,8 @@
 		add column IF NOT EXISTS mapa BYTEA ,
 		add column IF NOT EXISTS bandera BYTEA ,
 		add column IF NOT EXISTS idmoneda INTEGER ;	
-		
+
+	--Verificar si el campo MONEDA existe en la tabla PAIS. Si existe, se inserta valores únicos de esa columna en tblMoneda	
 	DO $$
 	BEGIN
 		IF EXISTS (
@@ -34,7 +35,7 @@
 		END IF;
 	END $$;
 	
-		
+	--Actualizar el campo idmoneda en la tabla PAIS con los valores correspondientes en tblMoneda si el campo moneda existe en la tabla PAIS	
 	DO $$
 	BEGIN
 		IF EXISTS (
@@ -50,7 +51,7 @@
 		END IF;
 	END $$;
 	
-	
+	--Eliminar el campo Moneda de la tabla PAIS si dicha columna existe.
 	DO $$
 	BEGIN
 		IF EXISTS (
@@ -63,7 +64,8 @@
 			DROP COLUMN Moneda;
 		END IF;
 	END $$;
-		
+
+	--Actualizamos el campo sigla en tblMoneda para agregar las siglas respectivas por pais
 	UPDATE tblMoneda SET Sigla = 'CRC' WHERE id = 1;
 	UPDATE tblMoneda SET Sigla = 'AUD' WHERE id = 2;
 	UPDATE tblMoneda SET Sigla = 'CAD' WHERE id = 3;
